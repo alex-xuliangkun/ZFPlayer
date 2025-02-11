@@ -364,13 +364,15 @@ static const CGFloat kAnimate = 0.3;
 }
 
 - (void)tapped:(UITapGestureRecognizer *)tap {
-    CGPoint point = [tap locationInView:self.bgProgressView];
-    // 获取进度
-    CGFloat value = (point.x - self.sliderBtn.zf_width * 0.5) * 1.0 / self.bgProgressView.zf_width;
-    value = value >= 1.0 ? 1.0 : value <= 0 ? 0 : value;
-    self.value = value;
-    if ([self.delegate respondsToSelector:@selector(sliderTapped:)]) {
-        [self.delegate sliderTapped:value];
+    if(self.animate){
+        CGPoint point = [tap locationInView:self.bgProgressView];
+        // 获取进度
+        CGFloat value = (point.x - self.sliderBtn.zf_width * 0.5) * 1.0 / self.bgProgressView.zf_width;
+        value = value >= 1.0 ? 1.0 : value <= 0 ? 0 : value;
+        self.value = value;
+        if ([self.delegate respondsToSelector:@selector(sliderTapped:)]) {
+            [self.delegate sliderTapped:value];
+        }
     }
 }
 
